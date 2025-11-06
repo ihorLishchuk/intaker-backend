@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Units {
+  metric
+  imperial
+  standard
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String?
+  createdAt    DateTime      @default(now())
+  profile      UserProfile?
+  widgets      Widget[]      @relation("UserWidgets")
+  favorites    Favorite[]
+}
+
+model UserProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  units     Units    @default(metric)
+  timezone  String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Widget {
+  id          String      @id @default(cuid())
+  ownerId     String?
+  name        String
+  kind        String
+  configJson  Json?
+  createdAt   DateTime     @default(now())
+  owner       User?        @relation("UserWidgets", fields: [ownerId], references: [id], onDelete: SetNull)
+  favoredBy   Favorite[]
+  @@index([ownerId])
+  @@index([kind])
+}
+
+model Favorite {
+  userId   String
+  widgetId String
+  createdAt DateTime @default(now())
+
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  widget   Widget @relation(fields: [widgetId], references: [id], onDelete: Cascade)
+
+  @@id([userId, widgetId])
+  @@index([widgetId])
+}

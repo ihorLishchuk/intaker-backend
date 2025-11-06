@@ -19,7 +19,7 @@ export class OpenWeatherProvider {
     return data;
   }
 
-  async getForecast(city: string, cnt?: number) {
+  async getForecast(city: string, cnt: number) {
     const url = `${this.baseUrl}/forecast`;
     const { data } = await firstValueFrom(
       this.http.get(url, { params: { q: city, units: this.units, cnt, appid: this.apiKey } }),

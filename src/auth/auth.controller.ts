@@ -12,7 +12,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Authenticate user and return JWT token' })
   @ApiResponse({ status: 201, type: LoginResponse })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
-  login(@Body() body: LoginDto): LoginResponse {
-    return this.svc.validateAndSign(body);
+  async login(@Body() body: LoginDto): Promise<LoginResponse> {
+    return await this.svc.validateAndSign(body);
   }
 }

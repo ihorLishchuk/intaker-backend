@@ -8,5 +8,6 @@ import { HttpModule } from '../infra/http.module.js';
   imports: [HttpModule],
   controllers: [WeatherController],
   providers: [WeatherService, OpenWeatherProvider],
+  exports: [WeatherService]
 })
 export class WeatherModule {}

@@ -7,6 +7,9 @@ import { WeatherModule } from './weather/weather.module.js';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { CacheModule } from './infra/cache.module.js';
 import { HttpModule as InfraHttpModule } from './infra/http.module.js';
+import { WidgetsModule } from "./widgets/widgets.module.js";
+import { FavoritesModule } from "./favorites/favorites.module.js";
+import { UsersModule } from "./users/users.module.js";
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { HttpModule as InfraHttpModule } from './infra/http.module.js';
     InfraHttpModule,
     AuthModule,
     WeatherModule,
+    WidgetsModule,
+    FavoritesModule,
+    UsersModule
   ],
 })
 export class AppModule {}

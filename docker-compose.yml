@@ -10,3 +10,25 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+#  db:
+#    image: postgres:16-alpine
+#    environment:
+#      POSTGRES_USER: bff
+#      POSTGRES_PASSWORD: bff
+#      POSTGRES_DB: bffdb
+#    ports: [ "5432:5432" ]
+#    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+  postgres:
+    image: postgres:16-alpine
+    container_name: intaker-db
+    restart: always
+    environment:
+      POSTGRES_USER: bff
+      POSTGRES_PASSWORD: bff
+      POSTGRES_DB: bffdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

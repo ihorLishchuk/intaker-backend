@@ -5,10 +5,9 @@ export class ForecastQueryDto {
   @IsString()
   city!: string;
 
-  @IsOptional()
   @IsInt()
   @IsPositive()
   @Min(1)
   @Type(() => Number)
-  cnt?: number;
+  cnt!: number;
 }
