@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
+      - name: npm install, build, test, migration
         run: |
           npm install
           npm run build --if-present
@@ -47,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -62,4 +62,3 @@ jobs:
           app-name: 'intaker-bff'
           slot-name: 'Production'
           package: .
-          
